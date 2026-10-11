@@ -1,22 +1,38 @@
 {
-  "name": "noir-urbano",
-  "version": "1.0.0",
-  "description": "NOIR URBANO — Streetwear premium. Cartagena, Colombia.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "test": "node --test tests",
-    "smoke:db": "node scripts/db-smoke-test.js",
-    "check": "node --check script.js && node --check server.js && node --check api/wompi-checkout.js && node --check api/wompi-transaction.js && node --check api/wompi-webhook.js && node --check api/order-status.js && node --check api/admin-auth.js && node --check api/admin-config.js && node --check api/admin-orders.js && node --check api/admin/orders.js && node --check api/admin/order.js && node --check api/admin/order-status.js && node --check api/clerk-proxy.js && node --check domain/orders/order-access.js && node --check domain/orders/order-runtime.js && node --check domain/orders/order-service.js && node --check repositories/memory-order-repository.js && node --check repositories/postgres-order-repository.js && node --check scripts/db-smoke-test.js"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "license": "UNLICENSED",
+  "name": "noctis-urbano-next",
+  "version": "2.0.0",
+  "description": "NOCTIS URBANO — Streetwear premium. Next.js 15 + TypeScript + Tailwind + Wompi + AI RAG",
   "private": true,
+  "scripts": {
+    "dev": "next dev frontend -p 4173",
+    "build": "next build frontend",
+    "start": "next start frontend -p 4173",
+    "lint": "next lint frontend",
+    "test": "node --test tests/**/*.test.*"
+  },
   "dependencies": {
-    "@clerk/backend": "^3.17.2",
-    "@neondatabase/serverless": "^1.1.0"
+    "@clerk/nextjs": "^7.9.8",
+    "@clerk/themes": "^2.4.57",
+    "@google/genai": "^2.24.0",
+    "@types/pg": "^8.23.1",
+    "clsx": "^2.1.1",
+    "graphology": "^0.26.0",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "nodemailer": "^10.0.12",
+    "pg": "^8.23.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/nodemailer": "^8.0.2",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
   }
 }

@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["frontend/src/*", "./*"],
+      "@/frontend/*": ["frontend/src/*"],
+      "@/components/*": ["frontend/src/components/*"],
+      "@/context/*": ["frontend/src/context/*"],
+      "@/data/*": ["frontend/src/data/*"],
+      "@/types/*": ["frontend/src/types/*"],
+      "@/backend/*": ["backend/*"],
+      "@/lib/*": ["backend/*", "backend/services/*"],
+      "@/lib/ai": ["backend/ai"],
+      "@/lib/graph": ["backend/graph"],
+      "@/lib/mcp": ["backend/mcp"],
+      "@/lib/db": ["backend/db"],
+      "@/lib/wompi": ["backend/services/wompi"],
+      "@/lib/mail": ["backend/services/mail"],
+      "@/lib/productsStore": ["backend/services/productsStore"],
+      "@/lib/categoriesStore": ["backend/services/categoriesStore"],
+      "@/lib/settingsStore": ["backend/services/settingsStore"],
+      "@/lib/rag": ["backend/services/rag"],
+      "@/lib/gemini": ["backend/services/gemini"],
+      "@/lib/aiProvider": ["backend/services/aiProvider"],
+      "@/lib/adminAuth": ["backend/services/adminAuth"],
+      "@/lib/i18n": ["backend/services/i18n"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
