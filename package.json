@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev frontend -p 4173",
     "build": "next build frontend",
-    "start": "next start frontend -p 4173",
+    "start": "next start frontend",
     "lint": "next lint frontend",
     "test": "node --test tests/**/*.test.*"
   },
