@@ -42,7 +42,7 @@ Return ONLY the translated text without commentary or quotes.
 Text to translate:
 """${text}"""`;
 
-    const modelName = (process.env.GEMINI_MODEL || 'gemini-1.5-flash').trim();
+    const modelName = (process.env.GEMINI_MODEL || 'gemini-2.5-flash').trim();
     const response = await aiClient.models.generateContent({
       model: modelName,
       contents: prompt,
