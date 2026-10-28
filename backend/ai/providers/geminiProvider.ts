@@ -60,14 +60,35 @@ export async function runGeminiAgent(
     }
   }));
 
+  const preferredModel = (process.env.GEMINI_MODEL || 'gemini-1.5-flash').trim();
+  let usedModel = preferredModel;
+  let response: any;
+
   try {
-    const response = await aiClient.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: `${systemPrompt}\n\nMENSAJE ACTUAL DEL CLIENTE: "${message}"`,
-      config: {
-        tools: [{ functionDeclarations: geminiFunctions }]
+    try {
+      response = await aiClient.models.generateContent({
+        model: preferredModel,
+        contents: `${systemPrompt}\n\nMENSAJE ACTUAL DEL CLIENTE: "${message}"`,
+        config: {
+          tools: [{ functionDeclarations: geminiFunctions }]
+        }
+      });
+    } catch (primaryErr: any) {
+      // Fallback automático si el modelo preferido sufre saturación 503 o no está disponible
+      if (preferredModel !== 'gemini-1.5-flash') {
+        console.warn(`[GeminiProvider] Fallback automático a gemini-1.5-flash por:`, primaryErr?.message || primaryErr);
+        usedModel = 'gemini-1.5-flash';
+        response = await aiClient.models.generateContent({
+          model: 'gemini-1.5-flash',
+          contents: `${systemPrompt}\n\nMENSAJE ACTUAL DEL CLIENTE: "${message}"`,
+          config: {
+            tools: [{ functionDeclarations: geminiFunctions }]
+          }
+        });
+      } else {
+        throw primaryErr;
       }
-    });
+    }
 
     const candidate = response.candidates?.[0];
     const actions: AiAction[] = [];
@@ -153,15 +174,23 @@ export async function runGeminiAgent(
       }
     }
 
-    if (!textReply && response.text) {
-      textReply = response.text;
+    try {
+      if (!textReply && response?.text) {
+        textReply = response.text;
+      }
+    } catch {
+      // Ignorar si el SDK lanza excepción cuando solo hay functionCall
+    }
+
+    if (!textReply && actions.length > 0) {
+      textReply = '¡Entendido! He procesado tu solicitud en la tienda.';
     }
 
     return {
       reply: textReply.trim(),
       actions,
       provider: 'gemini',
-      model: 'gemini-2.5-flash'
+      model: usedModel
     };
   } catch (error) {
     console.error('[GeminiProvider] Execution error:', error);
