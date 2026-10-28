@@ -60,7 +60,7 @@ export async function runGeminiAgent(
     }
   }));
 
-  const preferredModel = (process.env.GEMINI_MODEL || 'gemini-2.5-flash').trim();
+  const preferredModel = (process.env.GEMINI_MODEL || 'gemini-3.8-flash').trim();
   let usedModel = preferredModel;
   let response: any;
 
@@ -74,12 +74,12 @@ export async function runGeminiAgent(
         }
       });
     } catch (primaryErr: any) {
-      // Fallback automático si el modelo preferido sufre saturación 503 o no está disponible
-      if (preferredModel !== 'gemini-2.0-flash') {
-        console.warn(`[GeminiProvider] Fallback automático a gemini-2.0-flash por:`, primaryErr?.message || primaryErr);
-        usedModel = 'gemini-2.0-flash';
+      // Si el modelo configurado falla, intentar con gemini-2.5-flash
+      if (preferredModel !== 'gemini-2.5-flash') {
+        console.warn(`[GeminiProvider] Fallback a gemini-2.5-flash por:`, primaryErr?.message || primaryErr);
+        usedModel = 'gemini-2.5-flash';
         response = await aiClient.models.generateContent({
-          model: 'gemini-2.0-flash',
+          model: 'gemini-2.5-flash',
           contents: `${systemPrompt}\n\nMENSAJE ACTUAL DEL CLIENTE: "${message}"`,
           config: {
             tools: [{ functionDeclarations: geminiFunctions }]
