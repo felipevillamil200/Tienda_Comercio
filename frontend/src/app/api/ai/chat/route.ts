@@ -26,3 +26,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Error procesando respuesta de IA' }, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const { getGeminiClient } = await import('@/lib/ai/providers/geminiProvider');
+    const client = getGeminiClient();
+    if (!client) {
+      return NextResponse.json({ ok: false, error: 'GEMINI_API_KEY no configurada' });
+    }
+    const response = await client.models.list();
+    const models: string[] = [];
+    for await (const m of response) {
+      if (m.name) models.push(m.name);
+    }
+    return NextResponse.json({ ok: true, count: models.length, models });
+  } catch (err: any) {
+    return NextResponse.json({ ok: false, error: err?.message || String(err) });
+  }
+}
