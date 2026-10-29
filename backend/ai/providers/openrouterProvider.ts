@@ -71,7 +71,8 @@ export async function runOpenRouterAgent(
           messages,
           tools: openAITools,
           tool_choice: 'auto'
-        })
+        }),
+        signal: AbortSignal.timeout(12000)
       });
 
       // Si el modelo no admite tools o devuelve 400, reintentar el mismo modelo como completado puro de texto
@@ -89,7 +90,8 @@ export async function runOpenRouterAgent(
           body: JSON.stringify({
             model,
             messages
-          })
+          }),
+          signal: AbortSignal.timeout(12000)
         });
       }
 

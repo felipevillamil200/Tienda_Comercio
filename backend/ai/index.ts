@@ -53,8 +53,12 @@ export async function runUniversalAiAgent(
   // 4. Si no hay proveedor configurado o falló la conexión con el LLM
   if (!agentResult || !agentResult.reply) {
     const errorDetail = lastError ? ` (Detalle: ${lastError})` : '';
+    const hasKeysConfigured = isOpenRouterAvailable() || isGeminiAvailable() || isOpenAIAvailable();
+    
     agentResult = {
-      reply: `⚠️ Para interactuar con el Copiloto de IA de NOCTIS URBANO, asegúrate de configurar tu **OPENROUTER_API_KEY** en las variables de entorno.${errorDetail}`,
+      reply: hasKeysConfigured
+        ? `⚠️ El modelo de IA experimentó una breve congestión temporal en la cola gratuita. Por favor envía tu mensaje de nuevo en unos segundos.${errorDetail}`
+        : `⚠️ Para interactuar con el Copiloto de IA de NOCTIS URBANO, asegúrate de configurar tu **OPENROUTER_API_KEY** en las variables de entorno.${errorDetail}`,
       actions: [
         {
           type: 'go_to_catalog',
