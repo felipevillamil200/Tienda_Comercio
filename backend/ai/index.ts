@@ -70,8 +70,9 @@ export async function runUniversalAiAgent(
   // Enriquecer las acciones generadas por la IA con los datos completos del producto
   const enrichedActions = (agentResult.actions || []).map(act => {
     if (act.productId && !act.product) {
-      const prod = getProductById(act.productId) || 
-        allProds.find(p => p.id.toLowerCase().includes(act.productId!.toLowerCase()) || p.name.toLowerCase().includes(act.productId!.toLowerCase()));
+      const pid = String(act.productId).toLowerCase();
+      const prod = getProductById(String(act.productId)) || 
+        allProds.find(p => (p.id && String(p.id).toLowerCase().includes(pid)) || (p.name && String(p.name).toLowerCase().includes(pid)));
       if (prod) {
         return { ...act, product: prod };
       }

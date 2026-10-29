@@ -25,7 +25,10 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error('[/api/ai/chat Error]:', error);
-    return NextResponse.json({ error: 'Error procesando respuesta de IA' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Error procesando respuesta de IA',
+      detail: error?.message || String(error)
+    }, { status: 500 });
   }
 }
 

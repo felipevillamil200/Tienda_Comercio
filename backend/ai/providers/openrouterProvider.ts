@@ -58,7 +58,7 @@ export async function runOpenRouterAgent(
 
   for (const model of modelsToTry) {
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      let response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,6 +73,25 @@ export async function runOpenRouterAgent(
           tool_choice: 'auto'
         })
       });
+
+      // Si el modelo no admite tools o devuelve 400, reintentar el mismo modelo como completado puro de texto
+      if (response.status === 400) {
+        const errText = await response.text();
+        console.warn(`[OpenRouter] Reintentando ${model} en modo texto tras rechazo de tools:`, errText.slice(0, 120));
+        response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+            'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL || 'https://tienda-comercio.onrender.com',
+            'X-Title': 'NOCTIS URBANO'
+          },
+          body: JSON.stringify({
+            model,
+            messages
+          })
+        });
+      }
 
       if (!response.ok) {
         const errText = await response.text();
