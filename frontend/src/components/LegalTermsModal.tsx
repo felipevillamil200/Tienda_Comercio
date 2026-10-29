@@ -168,7 +168,7 @@ export default function LegalTermsModal({ isOpen, initialTab = 'terms', onClose 
               <ul style={{ paddingLeft: '20px', margin: '8px 0' }}>
                 <li>Gestionar y entregar tus pedidos de forma segura.</li>
                 <li>Notificarte el estado del envío y número de guía.</li>
-                <li>Brindarte soporte a través de nuestro asesor Google Gemini AI y WhatsApp.</li>
+                <li>Brindarte soporte a través de nuestro asesor inteligente de IA y WhatsApp.</li>
                 <li>Enviarte accesos prioritarios a nuevos Drops (si otorgas consentimiento expreso).</li>
               </ul>
 

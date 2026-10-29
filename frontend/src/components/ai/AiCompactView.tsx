@@ -98,7 +98,7 @@ export function AiCompactView({
               NOCTIS AI // WEB MCP
             </strong>
             <span style={{ display: 'block', fontSize: '0.62rem', color: '#38bdf8', fontWeight: 800, letterSpacing: '0.04em' }}>
-              ✦ COPILOTO EN VIVO • GEMINI 2.5 + LIVE INVENTORY
+              ✦ COPILOTO EN VIVO • OPENROUTER + LIVE INVENTORY
             </span>
           </div>
         </div>
@@ -403,7 +403,7 @@ export function AiCompactView({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', background: 'rgba(56, 189, 248, 0.08)', borderRadius: '6px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
                 <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38bdf8', animation: 'pulse 1s infinite' }} />
                 <p style={{ color: '#38bdf8', fontSize: '0.75rem', margin: 0, fontWeight: 700 }}>
-                  Google Gemini AI consultando bodega y preparando asistencia...
+                  NOCTIS AI consultando bodega y preparando asistencia...
                 </p>
               </div>
             )}

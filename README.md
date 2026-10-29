@@ -14,7 +14,7 @@ Reconstruida completamente sobre **Next.js 15 (App Router), React 19, TypeScript
 - **Lenguaje:** TypeScript estricto con modelos tipados (`Product`, `Order`, `CartItem`).
 - **UI & Estilos:** Tailwind CSS + Vanilla CSS modular con paleta brutalista streetwear.
 - **Pasarela de Pagos:** Wompi Colombia (Nequi, PSE, Bancolombia, Tarjetas de Crédito/Débito) con cálculo criptográfico SHA-256 de firma de integridad y Webhooks en tiempo real.
-- **IA & RAG:** Asistente conversacional (`NOCTIS AI`) y motor de búsqueda semántica vectorial por similitud coseno.
+- **IA & RAG:** Asistente conversacional (`NOCTIS AI`) impulsado por **OpenRouter** (modelos `:free` sin restricciones de cuota y fallbacks) y motor de búsqueda semántica vectorial por similitud coseno.
 - **Gestión de Estado:** React Context API reactivo con sincronización en `localStorage`.
 - **Panel Administrativo:** Dashboard de operaciones para control de pedidos y estados de despacho en `/admin`.
 
@@ -32,7 +32,7 @@ Tienda_Comercio/
     ├── components/               # Componentes visuales React (Navbar, CartDrawer, etc.)
     ├── context/                  # Estado reactivo global (CartContext)
     ├── data/                     # Datos iniciales de catálogo
-    ├── lib/                      # Servicios Backend (Gemini IA, MCP, Graphology, Wompi, DB)
+    ├── lib/                      # Servicios Backend (OpenRouter IA, MCP, Graphology, Wompi, DB)
     └── types/                    # Definiciones TypeScript
 
 > Para una explicación exhaustiva de cada módulo, consulta [ARCHITECTURE.md](ARCHITECTURE.md).

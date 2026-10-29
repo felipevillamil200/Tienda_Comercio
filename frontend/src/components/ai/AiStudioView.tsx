@@ -110,7 +110,7 @@ export function AiStudioView({
                 color: '#38bdf8',
                 fontWeight: 800
               }}>
-                GEMINI 2.5 FLASH • EN VIVO
+                OPENROUTER AI • EN VIVO
               </span>
             </div>
             <span style={{ display: 'block', fontSize: '0.68rem', color: '#a1a1aa', letterSpacing: '0.02em' }}>
@@ -488,7 +488,7 @@ export function AiStudioView({
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 18px', background: 'rgba(56, 189, 248, 0.08)', borderRadius: '8px', border: '1px solid rgba(56, 189, 248, 0.2)', width: 'fit-content' }}>
                     <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38bdf8', animation: 'pulse 1s infinite' }} />
                     <p style={{ color: '#38bdf8', fontSize: '0.82rem', margin: 0, fontWeight: 700 }}>
-                      Google Gemini AI consultando bodega y preparando asistencia...
+                      NOCTIS AI consultando bodega y preparando asistencia...
                     </p>
                   </div>
                 )}
@@ -538,7 +538,7 @@ export function AiStudioView({
               </button>
             </form>
             <span style={{ display: 'block', textAlign: 'center', fontSize: '0.64rem', color: '#52525b', marginTop: '8px' }}>
-              ✦ Presiona Enter para enviar • Asesoría de compras con Google Gemini 2.5 Flash en vivo
+              ✦ Presiona Enter para enviar • Asesoría de compras con OpenRouter AI en vivo
             </span>
           </div>
         </div>

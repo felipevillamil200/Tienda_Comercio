@@ -39,7 +39,7 @@ export function AiWelcomeHero({ onSendMessage }: AiWelcomeHeroProps) {
           color: '#38bdf8',
           textTransform: 'uppercase'
         }}>
-          ✦ SISTEMA DE ASESORÍA Y COMPRAS CON GOOGLE GEMINI 2.5
+          ✦ SISTEMA DE ASESORÍA Y COMPRAS CON OPENROUTER AI
         </span>
         <h1 style={{
           fontFamily: 'var(--font-display)',

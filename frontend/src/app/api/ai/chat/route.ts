@@ -15,8 +15,10 @@ export async function POST(req: NextRequest) {
       recommendedProducts: result.recommendedProducts || [],
       actions: result.actions || [],
       engine: result.model,
-      source: result.provider === 'gemini' 
-        ? 'Google Gemini 2.5 Flash (Tool Calling Nativo)' 
+      source: result.provider === 'openrouter'
+        ? `OpenRouter AI (${result.model}) [Tool Calling Nativo]`
+        : result.provider === 'gemini' 
+        ? 'Google Gemini (Legacy Fallback)' 
         : result.provider === 'openai' 
         ? 'OpenAI / Universal Agent (Tool Calling Nativo)' 
         : 'NOCTIS Semantic Core (Fallback)'
@@ -29,17 +31,38 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+    if (openrouterKey && openrouterKey.trim().length > 5) {
+      return NextResponse.json({
+        ok: true,
+        activeProvider: 'openrouter',
+        model: process.env.OPENROUTER_MODEL || 'openrouter/free',
+        status: 'OPENROUTER_OPERATIONAL',
+        freeModelsSupported: [
+          'openrouter/free',
+          'google/gemma-4-31b-it:free',
+          'nvidia/nemotron-3.5-lightning:free',
+          'meta-llama/llama-3.3-70b-instruct:free',
+          'deepseek/deepseek-r1:free'
+        ]
+      });
+    }
+
     const { getGeminiClient } = await import('@/lib/ai/providers/geminiProvider');
     const client = getGeminiClient();
     if (!client) {
-      return NextResponse.json({ ok: false, error: 'GEMINI_API_KEY no configurada' });
+      return NextResponse.json({ 
+        ok: false, 
+        error: 'Ni OPENROUTER_API_KEY ni GEMINI_API_KEY están configuradas',
+        recommendation: 'Configura OPENROUTER_API_KEY=sk-or-v1-... en tus variables de entorno.'
+      });
     }
     const response = await client.models.list();
     const models: string[] = [];
     for await (const m of response) {
       if (m.name) models.push(m.name);
     }
-    return NextResponse.json({ ok: true, count: models.length, models });
+    return NextResponse.json({ ok: true, activeProvider: 'gemini', count: models.length, models });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err?.message || String(err) });
   }

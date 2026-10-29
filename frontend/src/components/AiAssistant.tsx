@@ -403,7 +403,7 @@ export default function AiAssistant() {
         id: msgId,
         sender: 'ai',
         text: '',
-        source: data.source || 'Google Gemini AI (Memoria Activa)',
+        source: data.source || 'NOCTIS AI • OpenRouter (Memoria Activa)',
         products: data.recommendedProducts,
         actions: data.actions
       };
@@ -440,7 +440,7 @@ export default function AiAssistant() {
         {
           id: `err-${Date.now()}`,
           sender: 'ai',
-          text: language === 'EN' ? 'Error communicating with Gemini AI. Please try again.' : 'Error al procesar con Gemini AI. Inténtalo de nuevo.'
+          text: language === 'EN' ? 'Error communicating with AI Copilot. Please try again.' : 'Error al procesar con el copiloto de IA. Inténtalo de nuevo.'
         }
       ]);
       setLoading(false);
@@ -452,7 +452,7 @@ export default function AiAssistant() {
       <button
         onClick={() => setIsAiOpen(true)}
         className={`noir-ai-float ${isCartOpen ? 'with-cart-open' : ''}`}
-        title="Abrir Asesor y Copiloto Web con Google Gemini AI"
+        title="Abrir Asesor y Copiloto Web con NOCTIS AI (OpenRouter)"
       >
         <span>✦ NOCTIS AI</span>
       </button>

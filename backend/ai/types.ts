@@ -91,6 +91,6 @@ export interface AiAgentResult {
   reply: string;
   actions: AiAction[];
   recommendedProducts?: Product[];
-  provider: 'gemini' | 'openai' | 'anthropic' | 'fallback';
+  provider: 'openrouter' | 'gemini' | 'openai' | 'anthropic' | 'fallback';
   model: string;
 }

@@ -1,4 +1,5 @@
 import { UserContextPayload, ChatHistoryMessage, AiAgentResult, AiAction } from './types';
+import { runOpenRouterAgent, isOpenRouterAvailable } from './providers/openrouterProvider';
 import { runGeminiAgent, isGeminiAvailable } from './providers/geminiProvider';
 import { runOpenAIAgent, isOpenAIAvailable } from './providers/openaiProvider';
 import { getAllProducts, getProductById } from '@/lib/productsStore';
@@ -6,20 +7,31 @@ import { getAllProducts, getProductById } from '@/lib/productsStore';
 export * from './types';
 export * from './tools';
 export * from './prompt';
+export { isOpenRouterAvailable } from './providers/openrouterProvider';
 
 export async function runUniversalAiAgent(
   message: string,
   userContext?: UserContextPayload,
   history?: ChatHistoryMessage[]
 ): Promise<AiAgentResult> {
-  const providerPreference = (process.env.AI_PROVIDER || 'gemini').toLowerCase();
+  const providerPreference = (process.env.AI_PROVIDER || 'openrouter').toLowerCase();
   const allProds = getAllProducts();
 
   let agentResult: AiAgentResult | null = null;
   let lastError: string | null = null;
 
-  // 1. Intento con proveedor configurado (OpenAI)
-  if (providerPreference === 'openai' && isOpenAIAvailable()) {
+  // 1. Intento con OpenRouter (Prioridad principal por estabilidad y modelos gratuitos :free)
+  if ((providerPreference === 'openrouter' || !agentResult) && isOpenRouterAvailable()) {
+    try {
+      agentResult = await runOpenRouterAgent(message, userContext, history);
+    } catch (err: any) {
+      console.warn('[UniversalAiAgent] OpenRouter error:', err?.message || err);
+      lastError = err?.message;
+    }
+  }
+
+  // 2. Intento con OpenAI (si está configurado)
+  if (!agentResult && (providerPreference === 'openai' || isOpenAIAvailable())) {
     try {
       agentResult = await runOpenAIAgent(message, userContext, history);
     } catch (err: any) {
@@ -28,7 +40,7 @@ export async function runUniversalAiAgent(
     }
   }
 
-  // 2. Intento con Gemini (por defecto o si OpenAI no está activo)
+  // 3. Intento con Gemini (fallback o si es el proveedor seleccionado)
   if (!agentResult && isGeminiAvailable()) {
     try {
       agentResult = await runGeminiAgent(message, userContext, history);
@@ -38,11 +50,11 @@ export async function runUniversalAiAgent(
     }
   }
 
-  // 3. Si no hay proveedor configurado o falló la conexión con el LLM
+  // 4. Si no hay proveedor configurado o falló la conexión con el LLM
   if (!agentResult || !agentResult.reply) {
     const errorDetail = lastError ? ` (Detalle: ${lastError})` : '';
     agentResult = {
-      reply: `⚠️ Para interactuar con el Copiloto de IA de NOCTIS URBANO, asegúrate de configurar tu **GEMINI_API_KEY** o **OPENAI_API_KEY** en las variables de entorno (.env).${errorDetail}`,
+      reply: `⚠️ Para interactuar con el Copiloto de IA de NOCTIS URBANO, asegúrate de configurar tu **OPENROUTER_API_KEY** en las variables de entorno.${errorDetail}`,
       actions: [
         {
           type: 'go_to_catalog',

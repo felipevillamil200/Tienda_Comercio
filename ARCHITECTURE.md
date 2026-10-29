@@ -22,7 +22,7 @@ Tienda_Comercio/
 │   └── next.config.js           -> Configuración del framework Next.js
 │
 ├── ⚙️ backend/                   -> SERVICIOS Y LÓGICA DE NEGOCIO
-│   ├── ai/                      -> Motor de Inteligencia Artificial (Gemini + Prompting)
+│   ├── ai/                      -> Motor de Inteligencia Artificial (OpenRouter + Fallbacks + Prompting)
 │   ├── graph/                   -> Grafo de Conocimiento y Recomendaciones (Graphology)
 │   ├── mcp/                     -> Servidor MCP (Model Context Protocol 2024-11-05)
 │   ├── services/                -> Servicios independientes (Wompi, Mailer, Stores)

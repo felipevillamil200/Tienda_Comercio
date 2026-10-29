@@ -2,7 +2,7 @@
 
 ## Arquitectura
 
-Proyecto de ecommerce con frontend estático en HTML, CSS y JavaScript, backend Node.js compatible con Vercel y API en `api/`. La lógica de pedidos está en `domain/orders/`, la persistencia en `repositories/`, las migraciones SQL en `migrations/` y las pruebas en `tests/`.
+Proyecto de ecommerce full-stack en Next.js 15 (App Router), TypeScript y Tailwind CSS, desplegado en producción en **Render** ([tienda-comercio.onrender.com](https://tienda-comercio.onrender.com/)). Backend modular con servicios de IA (OpenRouter), persistencia en Neon Postgres y pasarela Wompi.
 
 ## Comandos disponibles
 
